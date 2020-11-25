@@ -1,0 +1,103 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/conf-template.xhtml">
+	<ui:define name="head"> :: CMAPP ::</ui:define>
+	<ui:define name="body">
+		<h:body>
+			<h:form id="form">
+				<p:messages id="messages" globalOnly="true" autoUpdate="true" closable="true" showDetail="true" showSummary="true"/>
+				<div align="center">
+					<h:outputLabel value="BIENVENIDO "/>#{principal.userAccess}<BR />
+					<h:outputLabel value="AL SISTEMA DE ADMINISTRACION DE EVENTOS"/>
+				</div>
+				
+				<p:wizard flowListener="#{principal.onFlowProcess()}">
+					<p:tab id="dataPerson" title="#{msg.dataPerson}">
+						<p:panel id="personRegister" header="#{msg.dataRegisterPerson}" style="width:100%;no-border">
+							<div align="center">	
+								<p:panelGrid id="personRegisterGrid" style="no-border" columns="2" cellpadding="5">
+									<p:outputLabel value="#{msg.documentTye}" for="tpdoc"/>
+									<p:selectOneMenu id="tpdoc" styleClass="texto" style="witdh:150px;" value="#{principal.newPerson.idTipoDocumento}">
+										<f:selectItems value="#{principal.typesDocuments}" var="tp" 
+												itemLabel="#{tp.description}" itemValue="#{tp.idTipoDocumento}"></f:selectItems>
+									</p:selectOneMenu>
+									<p:outputLabel value="#{msg.document}" for="doc1"/>
+									<p:inputText id="doc1" value="#{principal.newPerson.documento}" styleClass="texto" style="witdh:150px;"/>
+									<p:outputLabel value="#{msg.firstName}" for="nom1"/>
+									<p:inputText id="nom1" value="#{principal.newPerson.primerNombre}"  style="witdh:150px;" styleClass="texto"/>
+									<p:outputLabel value="#{msg.middleName}" for="nom2"/>
+									<p:inputText id="nom2" value="#{principal.newPerson.segundoNombre}"  style="witdh:150px;" styleClass="texto"/>
+									<p:outputLabel value="#{msg.lastName}" for="nom3"/>
+									<p:inputText id="nom3" value="#{principal.newPerson.primerApellido}"  style="witdh:150px;" styleClass="texto"/>
+									<p:outputLabel value="#{msg.lastName2}" for="nom4"/>
+									<p:inputText id="nom4" value="#{principal.newPerson.segundoApellido}"  style="witdh:150px;" styleClass="texto"/>
+									<p:outputLabel value="#{msg.brithday}" for="bhday"/>
+									<p:calendar id="bhday" value="#{principal.newPerson.fechaNacimiento}" pattern="dd-MM-yyyy" style="witdh:150px;" mask="true"/>
+									<p:outputLabel value="#{msg.birthplace}" for="bp"/>
+									<p:selectOneMenu id="bp" styleClass="texto" style="witdh:150px;" value="#{principal.newPerson.idCiudad}">
+										<f:selectItems value="#{principal.listCities}" var="ct" 
+												itemLabel="#{ct.cityName}" itemValue="#{ct.idCiudad}"></f:selectItems>
+									</p:selectOneMenu>
+									<p:outputLabel value="#{msg.height}" for="hei"/>
+									<p:inputNumber id="hei" value="#{principal.newPerson.estatura}"  style="witdh:150px;" styleClass="texto"/>
+									<p:outputLabel value="#{msg.phone}" for="pho"/>
+									<p:inputMask id="pho" value="#{principal.phone}" mask="9999999999"/>
+									<p:outputLabel value="#{msg.email}" for="mail"/>
+									<p:inputText id="mail" value="#{principal.newPerson.email}" styleClass="texto" style="witdh:150px;"/>
+									<p:outputLabel value="#{msg.rhBlood}" for="rh"/>
+									<p:selectOneMenu id="rh" styleClass="texto" style="witdh:150px;" value="#{principal.newPerson.grupoSanguineo}">
+										<f:selectItems value="#{principal.rhlist}" var="r" 
+												itemLabel="#{r.desc}" itemValue="#{r.id}"></f:selectItems>
+									</p:selectOneMenu>
+									<p:outputLabel value="#{msg.gender}" for="gen"/>
+									<p:selectOneRadio id="gen" value="#{principal.newPerson.genero}" unselectable="true">
+										<f:selectItem itemLabel="Female" itemValue="female"/>
+										<f:selectItem itemLabel="Male" itemValue="male"/>
+										<f:selectItem itemLabel="Other" itemValue="other"/>
+									</p:selectOneRadio>
+								</p:panelGrid>
+								<div align="center">
+									<p:commandButton value="#{msg.btnCreate}" actionListener="#{principal.createPerson()}" update="@form" ajax="false"/>
+								</div>
+							</div>
+						</p:panel>
+					</p:tab>
+					<p:tab id="dataTemperature" title="#{msg.dataTemp}">
+						<p:panel id="personTemperature" header="#{msg.dateRegisyterTemp}" style="width:100%;no-border">
+							<div align="center">
+									<p:outputLabel value="#{msg.document}" for="doc"/>
+									<p:inputText id="doc" value="#{principal.newPerson.documento}" styleClass="texto" style="witdh:150px;"/>
+									<p:outputLabel value="#{msg.disease}" for="ds"/>
+									<p:selectOneMenu id="ds" styleClass="texto" style="witdh:150px;" value="#{regis.registerPerson.idEnfermedad}">
+										<f:selectItems value="#{regis.listDisease}" var="dis" 
+												itemLabel="#{dis.description}" itemValue="#{dis.idEnfermedad}"></f:selectItems>
+									</p:selectOneMenu>
+									<p:outputLabel value="#{msg.company}" for="comp"/>
+									<p:selectOneMenu id="comp" styleClass="texto" style="witdh:150px;" value="#{regis.registerPerson.idEmpresa}">
+										<f:selectItems value="#{regis.listCompany}" var="co" 
+												itemLabel="#{co.name}" itemValue="#{co.idEmpresa}"></f:selectItems>
+									</p:selectOneMenu>
+									<div align="center">
+										<p:commandButton value="#{msg.btnSearch}" actionListener="#{regis.validatePerson()}" update="datareg" ajax="false"/>
+									</div>
+									<p:panel id="datareg" style="width:100%;no-border" visible="#{regis.visiblePanel}">
+										<p:outputLabel value="#{msg.weight}" for="wi"/>
+										<p:inputNumber id="wi" value="#{regis.personRegis.peso}"  style="witdh:150px;" styleClass="texto"/>
+										<p:outputLabel value="#{msg.temperature}" for="temp"/>
+										<p:inputNumber id="temp" value="#{regis.registerPerson.temperatura}"  style="witdh:150px;" styleClass="texto"/>
+										<div align="center">
+											<p:commandButton value="#{msg.btnAcess}" actionListener="#{regis.validatePerson()}" update="datareg" ajax="false"/>
+										</div>
+										
+									</p:panel>
+							</div>
+						</p:panel>
+					</p:tab>
+				</p:wizard>
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>

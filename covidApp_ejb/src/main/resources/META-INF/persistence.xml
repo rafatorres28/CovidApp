@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+	<persistence-unit name="covidApp_ejb_mysql">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:jboss/env/jdbc/covidapp</jta-data-source>
+		<mapping-file>META-INF/mysql-orm.xml</mapping-file>
+		<class>com.covidapp_mysql.model.Ciudade</class>
+		<class>com.covidapp_mysql.model.Decreto</class>
+		<class>com.covidapp_mysql.model.Departamento</class>
+		<class>com.covidapp_mysql.model.EmpresaLogin</class>
+		<class>com.covidapp_mysql.model.Empresa</class>
+		<class>com.covidapp_mysql.model.Enfermedade</class>
+		<class>com.covidapp_mysql.model.HistoricoDecreto</class>
+		<class>com.covidapp_mysql.model.Login</class>
+		<class>com.covidapp_mysql.model.Persona</class>
+		<class>com.covidapp_mysql.model.Registro</class>
+		<class>com.covidapp_mysql.model.TipoDocumento</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+		<properties>
+			<property name="hibernate.connection.driver_class"
+				value="com.mysql.jdbc.Driver" />
+			<property name="hibernate_dialect"
+				value="org.hibernate.dialect.MySQLDialect" />
+		</properties>
+	</persistence-unit>
+	<persistence-unit name="covidApp_ejb_postgres">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:jboss/env/jdbc/covidappPostgres</jta-data-source>
+		<mapping-file>META-INF/postgres-orm.xml</mapping-file>
+		<class>com.covidapp_postgres.model.Ciudade</class>
+		<class>com.covidapp_postgres.model.Decreto</class>
+		<class>com.covidapp_postgres.model.Departamento</class>
+		<class>com.covidapp_postgres.model.Empresa</class>
+		<class>com.covidapp_postgres.model.EmpresaLogin</class>
+		<class>com.covidapp_postgres.model.Enfermedade</class>
+		<class>com.covidapp_postgres.model.HistoricoDecreto</class>
+		<class>com.covidapp_postgres.model.LoginPostgres</class>
+		<class>com.covidapp_postgres.model.Persona</class>
+		<class>com.covidapp_postgres.model.Registro</class>
+		<class>com.covidapp_postgres.model.TipoDocumento</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+		<properties>
+			<property name="hibernate.connection.driver_class"
+				value="com.postgresql.jdbc.Driver" />
+			<property name="hibernate_dialect"
+				value="org.hibernate.dialect.PostgreSQL82Dialect" />
+		</properties>
+	</persistence-unit>
+</persistence>
